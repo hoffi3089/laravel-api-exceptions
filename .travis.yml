@@ -1,0 +1,22 @@
+dist: trusty
+
+language: php
+
+php:
+  - 7.2
+  - 7.3
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+install:
+  - travis_retry composer install --no-interaction --prefer-dist
+
+before_script:
+  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
+
+script:
+  - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
